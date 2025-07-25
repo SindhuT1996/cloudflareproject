@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+const API_URL = import.meta.env.PUBLIC_API_URL;
+
+---
+
+<Layout>
+<form method="POST" action={`${API_URL}/signin`}>
+  <input type="email" name="email" required />
+  <input type="password" name="password" required />
+  <button type="submit">Sign In</button>
+
+    <p class="text-center text-sm">Don't have an account?
+      <a href="/signup" class="text-blue-600 hover:underline">Sign up</a>
+    </p>
+  </form>
+
+  <script>
+    const signin = async (e: Event) => {
+      e.preventDefault();
+      const formData = new FormData(e.target as HTMLFormElement);
+      const email = formData.get("email");
+      const password = formData.get("password");
+
+      const res = await fetch("https://auth.example.workers.dev/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (res.ok) {
+        alert("Signin successful!");
+        window.location.href = "/dashboard";
+      } else {
+        const { detail } = await res.json();
+        alert("Signin failed: " + detail);
+      }
+    };
+    const form = document.getElementById("signin-form");
+    if (form) {
+      form.addEventListener("submit", signin);
+    }
+  </script>
+</Layout>

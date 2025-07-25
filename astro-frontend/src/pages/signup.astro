@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+const API_URL = import.meta.env.PUBLIC_API_URL;
+---
+
+<Layout>
+  <form id="signup-form">
+    <input type="email" name="email" required />
+    <input type="password" name="password" required />
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <script>
+    const signup = async (e: Event) => {
+      e.preventDefault();
+      const formData = new FormData(e.target as HTMLFormElement);
+      const email = formData.get("email");
+      const password = formData.get("password");
+
+      const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (res.ok) {
+        alert("Signup successful! Please login.");
+        window.location.href = "/signin";
+      } else {
+        const { detail } = await res.json();
+        alert("Signup failed: " + detail);
+      }
+    };
+
+    const form = document.getElementById("signup-form");
+    if (form) {
+      form.addEventListener("submit", signup);
+    }
+  </script>
+</Layout>
