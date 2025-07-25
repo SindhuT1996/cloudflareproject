@@ -1,0 +1,20 @@
+{
+  "name": "cloudflareproject",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/SindhuT1996/cloudflareproject#readme",
+  "bugs": {
+    "url": "https://github.com/SindhuT1996/cloudflareproject/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SindhuT1996/cloudflareproject.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
